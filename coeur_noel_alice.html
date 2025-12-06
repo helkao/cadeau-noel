@@ -1,0 +1,52 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Dec  6 03:02:32 2025
+
+@author: publh
+"""
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Cœur animé</title>
+<style>
+  body { margin: 0; background: black; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const x0 = canvas.width / 2;
+const y0 = canvas.height / 2;
+const scale = 20;
+
+let points = [];
+for(let i = 0; i < 6000; i++) {
+    let k = i;
+    let x = 15*Math.sin(k/100)**3;
+    let y = 12*Math.cos(k/100) - 5*Math.cos(2*k/100) - 2*Math.cos(3*k/100) - Math.cos(4*k/100);
+    points.push([x0 + x*scale, y0 - y*scale]);
+}
+
+let index = 0;
+function animate() {
+    if(index < points.length) {
+        let [x, y] = points[index];
+        ctx.fillStyle = "red";
+        ctx.fillRect(x, y, 2, 2); // dessine un petit carré pour simuler Turtle
+        index++;
+        requestAnimationFrame(animate);
+    }
+}
+
+animate();
+</script>
+</body>
+</html>
